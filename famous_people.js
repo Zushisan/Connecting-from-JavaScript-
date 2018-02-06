@@ -12,9 +12,8 @@ const client = new pg.Client({
 
 
 let queryVar = process.argv[2];
-const query =
-`SELECT * from famous_people
-  where last_name = $1`
+// const subquery = `SELECT last_name FROM famous_people WHERE last_name = "Lincoln"`
+const peoples = require('./last_name')(client);
 
 
 client.connect((err,) => {
@@ -22,12 +21,6 @@ client.connect((err,) => {
     return console.error("Connection Error", err);
   }
 
-  // promise
-  client.query(query, [queryVar])
-    .then(res => {console.log(res.rows[0]);
-                  client.end();
-                })
-    .catch(e => console.error(e.stack))
-
+  peoples.findByLast(queryVar);
 
 });
