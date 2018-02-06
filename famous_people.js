@@ -20,7 +20,6 @@ client.connect((err,) => {
   if (err) {
     return console.error("Connection Error", err);
   }
-
   peoples.findByLast(queryVar);
 
 });
